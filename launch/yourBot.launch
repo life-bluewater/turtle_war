@@ -1,3 +1,5 @@
 <launch>
-  <node pkg="turtle_war" type="randomBot.py" name="randomBot" output="screen"/>
+  <node pkg="turtle_war" type="LeNetBot.py" name="randomBot" output="screen">
+    <param name="home_dir" value="$(find turtle_war)/scripts/"/>
+  </node>
 </launch>
