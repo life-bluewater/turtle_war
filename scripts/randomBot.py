@@ -23,34 +23,25 @@ class RandomBot(AbstractBot):
         UPDATE_FREQUENCY = 1
         update_time = 0
 
-        while not rospy.is_shutdown():
-            if self.center_bumper or self.left_bumper or self.right_bumper:
-                update_time = time.time()
-                rospy.loginfo('bumper hit!!')
-                x = 0
-                th = 3
-                control_speed = -1
-                control_turn = 0
-            
-            elif time.time() - update_time > UPDATE_FREQUENCY:
-                update_time = time.time()
-                
-                value = random.randint(1,1000)
-                if value < 500:
-                    x = 1
-                    th = 0
-
-                elif value < 750:
-                    x = 0
-                    th = 3
-
-                elif value < 1000:
-                    x = 0
-                    th = -3
-                else:
-                    x = 0
-                    th = 0
-
+        while not rospy.is_shutdown():            
+            if time.time() - update_time > UPDATE_FREQUENCY:
+                if self.left_bumper:
+					update_time = time.time()
+	                rospy.loginfo('turn left!!')
+	                x = -0.5
+	                th = 3
+	            elif self.right_bumper:
+	                update_time = time.time()
+	                rospy.loginfo('turn right!!')
+	                x = -0.5   
+	                th = -3
+                pass
+            else:
+                update_time = time.time()                
+                rospy.loginfo('free!!')
+                x = 1       
+                th = 0 
+        
             target_speed = x
             target_turn = th
 
